@@ -12,5 +12,13 @@ class ServiceAccount extends Model implements AuthenticatableContract
 {
     use Authenticatable, Authorizable, HasApiTokens;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'description',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

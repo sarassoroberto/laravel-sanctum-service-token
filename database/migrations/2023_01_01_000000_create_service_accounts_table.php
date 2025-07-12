@@ -11,6 +11,8 @@ class CreateServiceAccountsTable extends Migration
         Schema::create('service_accounts', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->text('description')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
