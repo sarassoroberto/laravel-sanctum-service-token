@@ -1,0 +1,23 @@
+{
+    "name": "arpitech/laravel-sanctum-service-token",
+    "description": "Generazione token di servizio per Laravel Sanctum",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Arpitech\\SanctumServiceToken\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Arpitech\\SanctumServiceToken\\Providers\\SanctumServiceTokenServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^9.0|^10.0",
+        "laravel/sanctum": "^3.0"
+    }
+}
