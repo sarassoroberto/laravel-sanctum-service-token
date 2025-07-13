@@ -167,88 +167,6 @@ curl -H "Authorization: Bearer YOUR_TOKEN_HERE" \
 Ecco un esempio completo di come utilizzare i service token con un client Python:
 
 ```python
-import requests
-import json
-
-class LaravelApiClient:
-    def __init__(self, base_url, service_token):
-        """
-        Inizializza il client API
-        
-        Args:
-            base_url (str): URL base dell'API Laravel (es: 'https://your-api.com')
-            service_token (str): Token del service account generato con artisan
-        """
-        self.base_url = base_url.rstrip('/')
-        self.service_token = service_token
-        self.session = requests.Session()
-        
-        # Imposta gli header di default per tutte le richieste
-        self.session.headers.update({
-            'Authorization': f'Bearer {self.service_token}',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        })
-    
-    def get_stati_quotazione(self):
-        """
-        Recupera gli stati delle quotazioni
-        
-        Returns:
-            dict: Risposta dell'API con gli stati
-        """
-        try:
-            response = self.session.get(f'{self.base_url}/api/stati_quotazione')
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            print(f"Errore nella richiesta GET: {e}")
-            return None
-    
-    def cambio_stato_quotazione(self, quotazione_id, nuovo_stato, note=None):
-        """
-        Cambia lo stato di una quotazione
-        
-        Args:
-            quotazione_id (int): ID della quotazione
-            nuovo_stato (str): Nuovo stato da impostare
-            note (str, optional): Note aggiuntive
-            
-        Returns:
-            dict: Risposta dell'API
-        """
-        payload = {
-            'quotazione_id': quotazione_id,
-            'stato': nuovo_stato
-        }
-        
-        if note:
-            payload['note'] = note
-        
-        try:
-            response = self.session.post(
-                f'{self.base_url}/api/quotazioni/cambioStato',
-                json=payload
-            )
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            print(f"Errore nella richiesta POST: {e}")
-            return None
-    
-    def test_connection(self):
-        """
-        Testa la connessione all'API
-        
-        Returns:
-            bool: True se la connessione è riuscita
-        """
-        try:
-            response = self.session.get(f'{self.base_url}/api/stati_quotazione')
-            return response.status_code == 200
-        except requests.exceptions.RequestException:
-            return False
-
 # Esempio di utilizzo
 if __name__ == "__main__":
     # Configura il client con il tuo service token
@@ -261,7 +179,7 @@ if __name__ == "__main__":
     # Testa la connessione
     if client.test_connection():
         print("✅ Connessione all'API riuscita!")
-        
+ s       
         # Recupera gli stati delle quotazioni
         stati = client.get_stati_quotazione()
         if stati:
